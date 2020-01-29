@@ -7,7 +7,7 @@ import logging
 import socket
 from time import sleep
 
-from zeroconf import IPVersion, ServiceInfo, Zeroconf
+from zeroconf import IPVersion, ServiceInfo, Zeroconf, InterfaceChoice
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
@@ -28,15 +28,17 @@ if __name__ == '__main__':
     else:
         ip_version = IPVersion.V4Only
 
-    desc = {'path': '/~paulsm/'}
+    desc = {
+        "uuid": "d3474e439bd04024a8cea58cec5a9c32",
+        "eth0": "30:1f:9a:90:00:e4",
+        "wlan0": "28:c2:dd:be:98:fd"
+    }
 
     info = ServiceInfo(
-        "_http._tcp.local.",
-        "Paul's Test Web Site._http._tcp.local.",
-        addresses=[socket.inet_aton("127.0.0.1")],
+        "_ds-hub._tcp.local.",
+        "d3474e439bd04024a8cea58cec5a9c32._ds-hub._tcp.local.",
         port=80,
         properties=desc,
-        server="ash-2.local.",
     )
 
     zeroconf = Zeroconf(ip_version=ip_version)
